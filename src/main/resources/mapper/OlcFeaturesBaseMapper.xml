@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csu.mapper.OlcFeaturesBaseMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.csu.pojo.OlcFeaturesBase">
+        <id column="id" property="id" />
+        <result column="feature_id" property="featureId" />
+        <result column="user_id" property="userId" />
+        <result column="feature_name" property="featureName" />
+        <result column="update_time" property="updateTime" />
+        <result column="geom" property="geom" />
+        <result column="ai_precison" property="aiPrecison" />
+        <result column="version" property="version" />
+        <result column="tag" property="tag" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, feature_id, user_id, feature_name, update_time, geom, ai_precison, version, tag
+    </sql>
+
+    <select id="copyTableToHistory">
+        CREATE TABLE olc_features_history AS(SELECT * FROM olc_features_base);
+    </select>
+
+    <select id="dropHistoryTable">
+        DROP TABLE IF EXISTS olc_features_history;
+    </select>
+
+    <select id="queryBaseIdList">
+        SELECT id FROM olc_features_base;
+    </select>
+
+    <select id="baseCutIncre">
+        SELECT st_difference((SELECT geom FROM olc_features_base WHERE id=#{baseId}),
+        (SELECT geom FROM olc_features_incre WHERE id=#{increId}));
+    </select>
+
+
+
+</mapper>

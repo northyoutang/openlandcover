@@ -1,0 +1,17 @@
+# 应用名称
+# spring.application.name=openlandcover
+# 应用服务 WEB 访问端口
+# server.port=8080
+
+server:
+  port: 8081
+
+
+spring:
+  application:
+    name: openlandcover
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost/olc?useSSL=false
+    username: postgres
+    password: postgres
